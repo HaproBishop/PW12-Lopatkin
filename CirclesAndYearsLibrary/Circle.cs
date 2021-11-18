@@ -10,7 +10,7 @@ namespace CirclesAndYearsLibrary
     {
         int _radius;
         double _square;
-        const double PI = 3.14;
+        const double _PI = 3.14;
         string _infoabout0 = "Значение меньше или равен 0";
         public int Radius
         {
@@ -37,7 +37,7 @@ namespace CirclesAndYearsLibrary
         }
         public double CalculateSquare()
         {            
-            return Square = PI * Math.Pow(Radius, 2);
+            return Square = _PI * Math.Pow(Radius, 2);
         }
     }
 }
