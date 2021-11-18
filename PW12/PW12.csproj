@@ -103,5 +103,14 @@
   <ItemGroup>
     <Resource Include="LogoIco.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\txt.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\FindItIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\SettingsOnWhiteIco.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

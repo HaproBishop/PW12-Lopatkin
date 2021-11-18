@@ -32,5 +32,10 @@ namespace CirclesAndYearsLibrary
             if (_year % 100 >= 1) return _year / 100 + 1;
             else return _year / 100;
         }
+        public static int DisplayCentennial(double year)
+        {
+            if (Convert.ToInt32(year) % 100 >= 1) return Convert.ToInt32(year) / 100 + 1;
+            else return Convert.ToInt32(year) / 100;
+        }
     }
 }
