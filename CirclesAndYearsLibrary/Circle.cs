@@ -11,7 +11,7 @@ namespace CirclesAndYearsLibrary
         int _radius;
         double _square;
         const double _PI = 3.14;
-        string _infoabout0 = "Значение меньше или равен 0";
+        string _infoabout0 = "Значение меньше или равно 0";
         public int Radius
         {
             get => _radius; set => _radius = ProveValue(value) ? value : throw new Exception(_infoabout0);
@@ -35,9 +35,17 @@ namespace CirclesAndYearsLibrary
         {
             Radius = radius;
         }
-        public double CalculateSquare()
-        {            
+        public double FindSquare()
+        {
             return Square = _PI * Math.Pow(Radius, 2);
+        }
+        public double FindSquare(int radius)
+        {            
+            return Square = _PI * Math.Pow(Radius=radius, 2);
+        }
+        public Circle Clone()
+        {
+            return (Circle)MemberwiseClone();
         }
     }
 }

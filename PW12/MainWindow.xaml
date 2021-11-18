@@ -19,7 +19,7 @@
                 <Image Source="/Icons/txt.ico"/>
             </Button>
             <Separator/>
-            <Button ToolTip="Найти площадь кругов и кольца">
+            <Button x:Name="FindAllSquares" ToolTip="Найти площадь кругов и кольца" Click="FindAllSquares_Click">
                 <Image Source="/Icons/FindItIco.ico"/>
             </Button>
             <Separator/>
@@ -27,7 +27,7 @@
         <GroupBox Header="Работа с радиусами" HorizontalAlignment="Center" Height="238" VerticalAlignment="Top" Width="248" Margin="0,53,0,0">
             <Grid>
                 <Label Content="Первый радиус:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="FirstRadius" HorizontalAlignment="Left" Height="23" Margin="117,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6"/>
+                <TextBox x:Name="FirstRadius" HorizontalAlignment="Left" Height="23" Margin="117,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6" PreviewTextInput="FirstRadius_PreviewTextInput"/>
                 <Label Content="Второй радиус:" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="SecondRadius" HorizontalAlignment="Left" Height="23" Margin="117,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6"/>
                 <Label Content="Первая площадь:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>

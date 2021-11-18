@@ -112,5 +112,11 @@
   <ItemGroup>
     <Resource Include="Icons\SettingsOnWhiteIco.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CirclesAndYearsLibrary\CirclesAndYearsLibrary.csproj">
+      <Project>{2951456f-daa4-4265-9eb5-4d481b783163}</Project>
+      <Name>CirclesAndYearsLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
