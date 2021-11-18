@@ -45,7 +45,7 @@
     <Compile Include="Circle.cs" />
     <Compile Include="Circles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Years.cs" />
+    <Compile Include="Centennial.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
