@@ -22,7 +22,19 @@ namespace IForPW12
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
+            FindAllSquares Finder = FindSquaresOfCircles_Click;
+            Finder += FindSquareOfRing_Click;
+        }
+        delegate void FindAllSquares(object sender, RoutedEventArgs e);
+        private static void FindSquaresOfCircles_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private static void FindSquareOfRing_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

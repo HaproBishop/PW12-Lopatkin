@@ -34,10 +34,10 @@
                 <TextBox x:Name="FirstSquare" HorizontalAlignment="Left" Height="23" Margin="117,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True"/>
                 <Label Content="Вторая площадь:" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="SecondSquare" HorizontalAlignment="Left" Height="23" Margin="117,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True"/>
-                <Button x:Name="FindSquaresOfCircles" Content="Найти площади кругов" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="212"/>
+                <Button x:Name="FindSquaresOfCircles" Content="Найти площади кругов" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="212" Click="FindSquaresOfCircles_Click"/>
                 <TextBox x:Name="SquareOfRing" HorizontalAlignment="Left" Height="23" Margin="117,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True"/>
                 <Label Content="Площадь кольца:" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="FindSquareOfRing" Content="Найти площадь кольца" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="212"/>
+                <Button x:Name="FindSquareOfRing" Content="Найти площадь кольца" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="212" Click="FindSquareOfRing_Click"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="Работа с годами" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="248" Margin="0,296,0,0">
