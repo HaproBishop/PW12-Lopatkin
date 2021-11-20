@@ -9,7 +9,7 @@ namespace CirclesAndYearsLibrary
     public class Circle
     {
         int _radius;
-        protected int _reservedradius;
+        int _reservedradius;
         double _square;
         double _reservedsquare;        
         const double _PI = 3.14;
