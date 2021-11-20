@@ -9,13 +9,26 @@ namespace CirclesAndYearsLibrary
     public class Circle
     {
         int _radius;
+        protected int _reservedradius;
         double _square;
+        double _reservedsquare;        
         const double _PI = 3.14;
         public static string _infoabout0 = "Значение меньше или равно 0";
+        public int ReservedRadius { get => _reservedradius; }
+        public double ReservedSquare { get => _reservedsquare; }
         public virtual int Radius
         {
-            get => _radius; set => _radius = ProveValue(value) ? value : throw new Exception(_infoabout0);
-        }
+            get => _radius;
+            set
+            {
+                if (ProveValue(value))
+                {
+                    _reservedradius = _radius;                    
+                    _radius = value;
+                }
+                else throw new Exception(_infoabout0);
+            }
+        }        
         public double Square { get => _square;}
         /// <summary>
         /// Проверяет на отрицательность числа, вводящего пользователем
@@ -40,9 +53,20 @@ namespace CirclesAndYearsLibrary
         {            
             return _square = _PI * Math.Pow(Radius=radius, 2);
         }
+        public static double FindSquare(double radius)
+        {
+            return _PI * Math.Pow(radius, 2);
+        }
         public Circle Clone()
         {
             return (Circle)MemberwiseClone();
+        }
+        public void Clear()
+        {
+            _reservedradius = _radius;
+            _radius = 0;
+            _reservedsquare = _square;
+            _square = 0;
         }
     }
 }

@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CirclesAndYearsLibrary;
 
-namespace IForPW12
+namespace PW12
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -34,11 +34,14 @@ namespace IForPW12
             {
                 try
                 {
-                    FirstSquare.Text = circles.FirstCircle.FindSquare(circles.Radius = Convert.ToInt32(FirstRadius.Text)).ToString();
-                    SecondSquare.Text = circles.SecondCircle.FindSquare(circles.Radius = Convert.ToInt32(SecondRadius.Text)).ToString();
+                    circles.FirstCircle.FindSquare(circles.Radius = Convert.ToInt32(FirstRadius.Text)).ToString();
+                    circles.SecondCircle.FindSquare(circles.Radius = Convert.ToInt32(SecondRadius.Text)).ToString();
+                    FirstSquare.Text = circles.FirstCircle.Square.ToString();
+                    SecondSquare.Text = circles.SecondCircle.Square.ToString();
+                    SwitchDefault(2);
                 }
                 catch
-                {
+                {                                      
                     MessageForUser();
                 }
             }
@@ -47,12 +50,12 @@ namespace IForPW12
 
         private void FindSquareOfRing_Click(object sender, RoutedEventArgs e)
         {
-            SquareOfRing.Text = circles.FindSquareOfRing().ToString();
+            if(FindSquareOfRing.IsEnabled) SquareOfRing.Text = circles.FindSquareOfRing().ToString();
         }
 
         private void FirstRadius_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = "1234567890".IndexOf(e.Text) < 0;
+        {            
+            e.Handled = "1234567890".IndexOf(e.Text) < 0;            
         }
 
         private void FindAllSquares_Click(object sender, RoutedEventArgs e)
@@ -69,7 +72,106 @@ namespace IForPW12
         }
         private  void MessageForUser()
         {
-            MessageBox.Show("Причина: " + Circles._infoaboutr1lessorequalr2, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Причина: " + Circles._infoaboutr1lessorequalr2, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);                        
+        }
+
+        private void Support_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Данная программа имеет следующие особенности:\n" +
+                "1) Нельзя вводить более 5 символов в строку для радиусов и 8 для ввода года\n" +
+                "2) Для быстрого закрытия программы можно использовать клавишу Esc\n" +
+                "3) Для открытия доступа к кнопке \"Найти площадь кольца\" неообходимо" +
+                " ввести первый радиус так, чтобы он был больше второго", "Справка", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void AboutProgram_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Реализовать расчет задачи:" +
+                "- Даны два круга с общим центром и радиусами R1 и R2(R1 > R2).Найти площади " +
+                "этих кругов S1 и S2, а также площадь S3 кольца, внешний радиус которого равен " +
+                "R1, внутренний радиус равен R2: S1 = PI * (R1)2, S2 = PI * (R2)2, S3 = S1 – S2.В" +
+                " качестве значения PI использовать 3.14." +
+                "- Дан номер некоторого года(целое положительное число).Определить " +
+                "соответствующий ему номер столетия, учитывая, что, к примеру, началом 20 " +
+                "столетия был 1901 год.", "О программе", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Year_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Centennial.Clear();
+        }
+
+        private void FirstRadius_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SwitchDefault(1);
+            FirstSquare.Clear();                        
+            circles.Clear();
+            circles.FirstCircle.Clear();
+            circles.SecondCircle.Clear();
+        }
+
+
+        private void SecondRadius_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SwitchDefault(1);
+            SecondSquare.Clear();
+            circles.Clear();
+            circles.FirstCircle.Clear();
+            circles.SecondCircle.Clear();
+        }
+        private void FirstRadius_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (FindSquareOfRing.IsEnabled == true) SwitchDefault(2);
+            else SwitchDefault(1);
+        }
+        /// <summary>
+        /// Данный метод позволяет быстро переключать дефолт на кнопках
+        /// </summary>
+        /// <param name="error">true, если начальные данные введены и необходимо найти кольцо;
+        /// false, если необходимо откатиться и ввести начальные значения</param>
+        private void SwitchDefault(int switcher)
+        {
+            switch (switcher)
+            {
+                case 1:
+                    {
+                        FindSquaresOfCircles.IsEnabled = true;
+                        FindSquaresOfCircles.IsDefault = true;
+                        MenuFindSquaresOfCircles.IsEnabled = true;                        
+                        FindSquareOfRing.IsEnabled = false;
+                        MenuFindSquareOfRing.IsEnabled = false;
+                        DisplayCentennial.IsDefault = false;
+                        SquareOfRing.Clear();
+                        break;
+                    }
+                case 2:
+                    {
+                        FindSquareOfRing.IsEnabled = true;
+                        FindSquareOfRing.IsDefault = true;
+                        MenuFindSquareOfRing.IsEnabled = true;
+                        FindSquaresOfCircles.IsEnabled = false;
+                        MenuFindSquaresOfCircles.IsEnabled = false;
+                        DisplayCentennial.IsDefault = false;
+                        break;
+                    }
+                default:
+                    {
+                        FindSquaresOfCircles.IsDefault = false;
+                        FindSquareOfRing.IsDefault = false;
+                        DisplayCentennial.IsDefault = true;
+                        break;
+                    }
+            }            
+        }
+
+        private void Year_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SwitchDefault(3);
         }
     }
 }
