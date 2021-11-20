@@ -27,12 +27,20 @@ namespace IForPW12
         }
         delegate void DelegateFindAllSquares(object sender, RoutedEventArgs e);        
         Circles circles = new Circles();
+        Centennial centennial = new Centennial();
         private void FindSquaresOfCircles_Click(object sender, RoutedEventArgs e)
         {
             if ((FirstRadius.Text != "") && (SecondRadius.Text != ""))
             {
-                FirstSquare.Text = circles.FirstCircle.FindSquare(Convert.ToInt32(FirstRadius.Text)).ToString();
-                SecondSquare.Text = circles.SecondCircle.FindSquare(Convert.ToInt32(SecondRadius.Text)).ToString();                
+                try
+                {
+                    FirstSquare.Text = circles.FirstCircle.FindSquare(circles.Radius = Convert.ToInt32(FirstRadius.Text)).ToString();
+                    SecondSquare.Text = circles.SecondCircle.FindSquare(circles.Radius = Convert.ToInt32(SecondRadius.Text)).ToString();
+                }
+                catch
+                {
+                    MessageForUser();
+                }
             }
             else MessageBox.Show("Необходимо ввести число для дальнейшего выполнения рассчетов!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -52,6 +60,16 @@ namespace IForPW12
             DelegateFindAllSquares Finder = FindSquaresOfCircles_Click;
             Finder += FindSquareOfRing_Click;
             Finder(sender, e);
+        }
+
+        private void DisplayCentennial_Click(object sender, RoutedEventArgs e)
+        {
+            if(Year.Text != "") centennial.Year = Convert.ToInt32(Year.Text);
+            Centennial.Text = centennial.DisplayCentennial().ToString();
+        }
+        private  void MessageForUser()
+        {
+            MessageBox.Show("Причина: " + Circles._infoaboutr1lessorequalr2, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

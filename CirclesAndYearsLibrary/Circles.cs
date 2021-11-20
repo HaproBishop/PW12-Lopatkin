@@ -12,13 +12,14 @@ namespace CirclesAndYearsLibrary
         double _finalsquare;
         Circle _firstcircle = new Circle();
         Circle _secondcircle = new Circle();
-        static string _infoaboutr1lessorequalr2 = "R1 <= R2. Необходимо R1>R2, то есть радиус первого круга больше второго";        
+        public static string _infoaboutr1lessorequalr2 = "R1 <= R2. Необходимо R1>R2, то есть радиус первого круга больше второго";
+        public override int Radius { get => base.Radius; set => base.Radius = ProveR1MoreR2(value) ? value : throw new Exception(_infoaboutr1lessorequalr2); }
         public Circle FirstCircle { get => _firstcircle; set => _firstcircle = value; }
-        public Circle SecondCircle { get => _secondcircle; set => _secondcircle = ProveR1MoreR2(value.Radius) ? value : throw new Exception(_infoaboutr1lessorequalr2); }
+        public Circle SecondCircle { get => _secondcircle; set => _secondcircle = value; }
         public double FinalSquare { get => _finalsquare; }    
         private bool ProveR1MoreR2(int value)
         {
-            if (_firstcircle.Radius > value) return true;
+            if (_firstcircle.Radius > value || _firstcircle.Radius == 0 || _firstcircle.Radius == value) return true;
             else return false;
         }
         public Circles() { }
@@ -43,45 +44,17 @@ namespace CirclesAndYearsLibrary
         }
         public double FindSquareOfRing(Circle firstcircle, Circle secondcircle)
         {
-            try
-            {
-                if (firstcircle.Radius <= secondcircle.Radius) throw new Exception(_infoaboutr1lessorequalr2);
-                else
-                {
-                    FirstCircle = firstcircle;
-                    SecondCircle = secondcircle;                    
-                    return _finalsquare = FirstCircle.Square - SecondCircle.Square;
-                }
-            }
-            catch
-            {
-                MessageForUser();
-            }
-            return 0;
+            FirstCircle = firstcircle.Clone();
+            SecondCircle = secondcircle.Clone();                    
+            return _finalsquare = FirstCircle.Square - SecondCircle.Square;
         }
         public static double FindSquareOfRing(double firstsquare, double secondsquare)
         {
-            try
-            {
-                if (firstsquare <= secondsquare) throw new Exception(_infoaboutr1lessorequalr2);
-                else
-                {
-                    return firstsquare - secondsquare;
-                }
-            }
-            catch
-            {
-                MessageForUser();
-            }
-            return 0;
+            return firstsquare - secondsquare;
         }
         public new Circles Clone()
         {
             return (Circles)MemberwiseClone();
-        }
-        private static void MessageForUser()
-        {
-            MessageBox.Show("Причина: " + _infoaboutr1lessorequalr2, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

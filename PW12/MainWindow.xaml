@@ -46,7 +46,7 @@
                 <TextBox x:Name="Year" HorizontalAlignment="Left" Height="23" Margin="117,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6"/>
                 <Label Content="Столетие:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="Centennial" HorizontalAlignment="Left" Height="23" Margin="117,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6" IsReadOnly="True"/>
-                <Button x:Name="DisplayCentennial" Content="Отобразить столетие" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="212"/>
+                <Button x:Name="DisplayCentennial" Content="Отобразить столетие" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="212" Click="DisplayCentennial_Click"/>
             </Grid>
         </GroupBox>
     </Grid>

@@ -8,9 +8,10 @@ namespace CirclesAndYearsLibrary
 {
     public class Centennial
     {
-        string _errorinfo = "Год не может быть отрицательным!";
+        public string _errorinfo = "Год не может быть отрицательным!";
         int _year;
         public int Year { get => _year; set => _year = ProveValue(value) ? value : throw new Exception(_errorinfo); }
+        public int CentennialForYear { get => _year; set => _year = ProveValue(value) ? value : throw new Exception(_errorinfo); }
         public Centennial() { }
         public Centennial(int year)
         {
@@ -23,14 +24,14 @@ namespace CirclesAndYearsLibrary
         }
         public int DisplayCentennial()
         {
-            if (_year % 100 >= 1) return _year / 100 + 1;
-            else return _year / 100;
+            if (_year % 100 >= 1) return CentennialForYear = _year / 100 + 1;
+            else return CentennialForYear = _year / 100;
         }
         public int DisplayCentennial(int year)
         {
             Year = year;
-            if (_year % 100 >= 1) return _year / 100 + 1;
-            else return _year / 100;
+            if (_year % 100 >= 1) return CentennialForYear = Convert.ToInt32(year) / 100 + 1;
+            else return CentennialForYear = _year / 100;
         }
         public static int DisplayCentennial(double year)
         {
