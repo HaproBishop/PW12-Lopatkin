@@ -5,17 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IForPW12"
         mc:Ignorable="d"
-        Title="PW12" Height="466" Width="320" ResizeMode="CanResize" Icon="Icons\LogoIco.ico">
+        Title="PW12" Height="601" Width="320" ResizeMode="CanResize" Icon="Icons\LogoIco.ico">
     <Grid>
         <Menu VerticalAlignment="Top">
             <MenuItem Header="Действия">
                 <MenuItem.Icon>
                     <Image Source="Icons/SettingsOnWhiteIco.ico"/>
                 </MenuItem.Icon>
+                <MenuItem Header="Найти площади кругов" Click="FindSquaresOfCircles_Click"/>
+                <MenuItem Header="Найти площадь кольца" Click="FindSquareOfRing_Click"/>
+                <MenuItem Header="Отобразить столетие" Click="DisplayCentennial_Click"/>
             </MenuItem>
+            <MenuItem Header="Справка"/>
+            <MenuItem Header="О программе"/>
+            <MenuItem Header="Выход"/>
         </Menu>
         <ToolBar VerticalAlignment="Top" Margin="0,24,0,0" Height="24">
-            <Button ToolTip="Отобразить столетие">
+            <Button ToolTip="Отобразить столетие" Click="DisplayCentennial_Click">
                 <Image Source="/Icons/txt.ico"/>
             </Button>
             <Separator/>
@@ -29,7 +35,7 @@
                 <Label Content="Первый радиус:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="FirstRadius" HorizontalAlignment="Left" Height="23" Margin="117,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6" PreviewTextInput="FirstRadius_PreviewTextInput"/>
                 <Label Content="Второй радиус:" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="SecondRadius" HorizontalAlignment="Left" Height="23" Margin="117,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6"/>
+                <TextBox x:Name="SecondRadius" HorizontalAlignment="Left" Height="23" Margin="117,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6" PreviewTextInput="FirstRadius_PreviewTextInput"/>
                 <Label Content="Первая площадь:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="FirstSquare" HorizontalAlignment="Left" Height="23" Margin="117,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True"/>
                 <Label Content="Вторая площадь:" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top"/>
@@ -45,8 +51,15 @@
                 <Label Content="Год:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="Year" HorizontalAlignment="Left" Height="23" Margin="117,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6"/>
                 <Label Content="Столетие:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="Centennial" HorizontalAlignment="Left" Height="23" Margin="117,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6" IsReadOnly="True"/>
+                <TextBox x:Name="Centennial" HorizontalAlignment="Left" Height="23" Margin="117,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6" IsReadOnly="True" PreviewTextInput="FirstRadius_PreviewTextInput"/>
                 <Button x:Name="DisplayCentennial" Content="Отобразить столетие" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="212" Click="DisplayCentennial_Click"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Стандартные возможности" HorizontalAlignment="Center" Height="114" Margin="32,430,32,0" VerticalAlignment="Top" Width="248">
+            <Grid>
+                <Button Content="Справка" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="216"/>
+                <Button Content="О программе" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="216"/>
+                <Button Content="Выход" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="216"/>
             </Grid>
         </GroupBox>
     </Grid>
