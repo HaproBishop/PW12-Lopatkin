@@ -118,5 +118,14 @@
       <Name>CirclesAndYearsLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Support.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\AboutProgram.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Exit.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

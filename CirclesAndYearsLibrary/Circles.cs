@@ -38,8 +38,8 @@ namespace CirclesAndYearsLibrary
         public Circles() { }
         public Circles(Circle firstcircle, Circle secondcircle)
         {
-            FirstCircle = firstcircle.Clone();
-            SecondCircle = secondcircle.Clone();
+            FirstCircle = firstcircle.Clone<Circle>();
+            SecondCircle = secondcircle.Clone<Circle>();
         }
         public void GiveRadiuses(Circle firstcircle, Circle secondcircle)
         {
@@ -48,8 +48,8 @@ namespace CirclesAndYearsLibrary
         }
         public void GiveCircles(Circle firstcircle, Circle secondcircle)
         {
-            FirstCircle = firstcircle.Clone();
-            SecondCircle = secondcircle.Clone();            
+            FirstCircle = firstcircle.Clone<Circle>();
+            SecondCircle = secondcircle.Clone<Circle>();            
         }
         public double FindSquareOfRing()
         {            
@@ -57,17 +57,13 @@ namespace CirclesAndYearsLibrary
         }
         public double FindSquareOfRing(Circle firstcircle, Circle secondcircle)
         {
-            FirstCircle = firstcircle.Clone();
-            SecondCircle = secondcircle.Clone();                    
+            FirstCircle = firstcircle.Clone<Circle>();
+            SecondCircle = secondcircle.Clone<Circle>();                    
             return _finalsquare = Math.Round(FirstCircle.Square - SecondCircle.Square,2);
         }
         public static double FindSquareOfRing(double firstsquare, double secondsquare)
         {
             return firstsquare - secondsquare;
-        }
-        public new Circles Clone()
-        {
-            return (Circles)MemberwiseClone();
         }
     }
 }

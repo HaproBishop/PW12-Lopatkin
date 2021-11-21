@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PW12"
         mc:Ignorable="d"
-        Title="Ring And Centennial" Height="601" Width="320" ResizeMode="CanResize" Icon="Icons\LogoIco.ico">
+        Title="Ring And Centennial" Height="601" Width="320" ResizeMode="CanResize" Icon="Icons\LogoIco.ico" KeyDown="Window_KeyDown">
     <Grid>
         <Menu VerticalAlignment="Top" Focusable="False">
-            <MenuItem Header="Действия" Focusable="False">
+            <MenuItem x:Name="Actions" Header="Действия" Focusable="False" Click="Actions_Click">
                 <MenuItem.Icon>
                     <Image Source="Icons/SettingsOnWhiteIco.ico"/>
                 </MenuItem.Icon>
-                <MenuItem x:Name="MenuFindSquaresOfCircles" Header="Найти площади кругов" Click="FindSquaresOfCircles_Click"/>
-                <MenuItem x:Name="MenuFindSquareOfRing" Header="Найти площадь кольца" Click="FindSquareOfRing_Click"/>
-                <MenuItem Header="Отобразить столетие" Click="DisplayCentennial_Click"/>
+                <MenuItem x:Name="MenuFindSquaresOfCircles" Icon=" 1" Header="Найти площади кругов" Click="FindSquaresOfCircles_Click"/>
+                <MenuItem x:Name="MenuFindSquareOfRing" Icon=" 2" Header="Найти площадь кольца" Click="FindSquareOfRing_Click" IsEnabled="False"/>
+                <MenuItem x:Name="MenuDisplayCentennial" Header="Отобразить столетие" Icon=" 3" Click="DisplayCentennial_Click"/>
             </MenuItem>
             <MenuItem Header="Справка" Click="Support_Click" Focusable="False"/>
             <MenuItem Header="О программе" Click="AboutProgram_Click" Focusable="False"/>
@@ -29,6 +29,17 @@
                 <Image Source="/Icons/txt.ico"/>
             </Button>
             <Separator/>
+            <Button Click="Support_Click" Focusable="False">
+                <Image Source="Icons/Support.ico" ToolTip="Показать справку"/>
+            </Button>
+            <Separator/>
+            <Button Click="AboutProgram_Click"  Focusable="False">
+                <Image Source="Icons/AboutProgram.ico"/>
+            </Button>
+                <Separator/>
+            <Button Click="Exit_Click" Focusable="False">
+                <Image Source="Icons/Exit.ico"/>
+            </Button>
         </ToolBar>
         <GroupBox Header="Работа с радиусами" HorizontalAlignment="Center" Height="238" VerticalAlignment="Top" Width="248" Margin="0,53,0,0">
             <Grid>

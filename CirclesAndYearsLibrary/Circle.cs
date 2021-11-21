@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CirclesAndYearsLibrary
 {
-    public class Circle
+    public class Circle:ICloneable
     {
         int _radius;
         int _reservedradius;
@@ -57,9 +57,13 @@ namespace CirclesAndYearsLibrary
         {
             return _PI * Math.Pow(radius, 2);
         }
-        public Circle Clone()
+        public T Clone<T>()
         {
-            return (Circle)MemberwiseClone();
+            return (T)MemberwiseClone();
+        }
+        public object Clone()
+        {
+            return Clone<Circle>();
         }
         public void Clear()
         {

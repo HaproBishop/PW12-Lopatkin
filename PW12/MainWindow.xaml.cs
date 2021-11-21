@@ -23,9 +23,10 @@ namespace PW12
     {
         public MainWindow()
         {
-            InitializeComponent();                        
+            InitializeComponent();
         }
-        delegate void DelegateFindAllSquares(object sender, RoutedEventArgs e);        
+        delegate void DelegateFindAllSquares(object sender, RoutedEventArgs e);
+        bool error;
         Circles circles = new Circles();
         Centennial centennial = new Centennial();
         private void FindSquaresOfCircles_Click(object sender, RoutedEventArgs e)
@@ -41,21 +42,24 @@ namespace PW12
                     SwitchDefault(2);
                 }
                 catch
-                {                                      
+                {
                     MessageForUser();
                 }
             }
-            else MessageBox.Show("Необходимо ввести число для дальнейшего выполнения рассчетов!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            else MessageForInputCheck();
         }
 
         private void FindSquareOfRing_Click(object sender, RoutedEventArgs e)
         {
-            if(FindSquareOfRing.IsEnabled) SquareOfRing.Text = circles.FindSquareOfRing().ToString();
+            if (FindSquareOfRing.IsEnabled) SquareOfRing.Text = circles.FindSquareOfRing().ToString();
         }
 
         private void FirstRadius_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {            
-            e.Handled = "1234567890".IndexOf(e.Text) < 0;            
+        {
+            if (!error)
+                e.Handled = "1234567890".IndexOf(e.Text) < 0;
+            else e.Handled = true;
+            error = false;
         }
 
         private void FindAllSquares_Click(object sender, RoutedEventArgs e)
@@ -67,12 +71,17 @@ namespace PW12
 
         private void DisplayCentennial_Click(object sender, RoutedEventArgs e)
         {
-            if(Year.Text != "") centennial.Year = Convert.ToInt32(Year.Text);
-            Centennial.Text = centennial.DisplayCentennial().ToString();
+            if (Year.Text != "")
+            {
+                centennial.Year = Convert.ToInt32(Year.Text);
+                Centennial.Text = centennial.DisplayCentennial().ToString();
+            }
+            else MessageForInputCheck();
         }
-        private  void MessageForUser()
+        private void MessageForUser()
         {
-            MessageBox.Show("Причина: " + Circles._infoaboutr1lessorequalr2, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);                        
+            error = true;
+            MessageBox.Show("Причина: " + Circles._infoaboutr1lessorequalr2, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void Support_Click(object sender, RoutedEventArgs e)
@@ -109,7 +118,7 @@ namespace PW12
         private void FirstRadius_TextChanged(object sender, TextChangedEventArgs e)
         {
             SwitchDefault(1);
-            FirstSquare.Clear();                        
+            FirstSquare.Clear();
             circles.Clear();
             circles.FirstCircle.Clear();
             circles.SecondCircle.Clear();
@@ -142,7 +151,7 @@ namespace PW12
                     {
                         FindSquaresOfCircles.IsEnabled = true;
                         FindSquaresOfCircles.IsDefault = true;
-                        MenuFindSquaresOfCircles.IsEnabled = true;                        
+                        MenuFindSquaresOfCircles.IsEnabled = true;
                         FindSquareOfRing.IsEnabled = false;
                         MenuFindSquareOfRing.IsEnabled = false;
                         DisplayCentennial.IsDefault = false;
@@ -166,12 +175,32 @@ namespace PW12
                         DisplayCentennial.IsDefault = true;
                         break;
                     }
-            }            
+            }
         }
 
         private void Year_GotFocus(object sender, RoutedEventArgs e)
         {
             SwitchDefault(3);
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Actions.IsSubmenuOpen)
+            {
+            if(e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.D1) FindSquaresOfCircles_Click(sender, e);
+                else if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.D2) FindSquareOfRing_Click(sender, e);
+                else if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.D3) DisplayCentennial_Click(sender, e);                
+            }                   
+        }
+
+        private void Actions_Click(object sender, RoutedEventArgs e)
+        {
+            MenuFindSquaresOfCircles.Focus();
+        }
+        private void MessageForInputCheck()
+        {
+            error = true;
+            MessageBox.Show("Необходимо ввести число для дальнейшего выполнения рассчетов!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
