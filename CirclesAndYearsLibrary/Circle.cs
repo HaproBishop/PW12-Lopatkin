@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CirclesAndYearsLibrary
-{
+{/// <summary>
+/// Класс для вычисления площади круга
+/// </summary>
     public class Circle:ICloneable
     {
         int _radius;
@@ -44,27 +46,49 @@ namespace CirclesAndYearsLibrary
         public Circle(int radius)
         {
             Radius = radius;
-        }
+        }/// <summary>
+        /// Нахождение площади круга
+        /// </summary>
+        /// <returns></returns>
         public double FindSquare()
         {
             return _square = _PI * Math.Pow(Radius, 2);
         }
+        /// <summary>
+        /// Нахождение площади круга с заданным радиусом
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <returns></returns>
         public double FindSquare(int radius)
         {            
             return _square = _PI * Math.Pow(Radius=radius, 2);
         }
+        /// <summary>
+        /// Нахождение площади без создания объекта
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <returns></returns>
         public static double FindSquare(double radius)
         {
             return _PI * Math.Pow(radius, 2);
-        }
+        }/// <summary>
+        /// Универсальное клонирование объектов типа Circle или Circles
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T Clone<T>()
         {
             return (T)MemberwiseClone();
-        }
+        }/// <summary>
+        /// Стандартное клонирование с перенаправлением на универсальный метод клонирования
+        /// </summary>
+        /// <returns></returns>
         public object Clone()
         {
             return Clone<Circle>();
-        }
+        }/// <summary>
+        /// Очистка данных объекта с предварительным сохранением
+        /// </summary>
         public void Clear()
         {
             _reservedradius = _radius;

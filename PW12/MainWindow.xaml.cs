@@ -14,76 +14,90 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using CirclesAndYearsLibrary;
-
+/// <summary>
+/// 
+/// </summary>
 namespace PW12
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Практическая работа №12. Лопаткин Сергей ИСП-31
+    /// Реализовать расчет задачи:" +
+    ///- Даны два круга с общим центром и радиусами R1 и R2(R1 > R2).Найти площади
+    ///этих кругов S1 и S2, а также площадь S3 кольца, внешний радиус которого равен 
+    ///R1, внутренний радиус равен R2: S1 = PI * (R1)2, S2 = PI * (R2)2, S3 = S1 – S2.В
+    /// качестве значения PI использовать 3.14.
+    ///- Дан номер некоторого года(целое положительное число).Определить
+    ///соответствующий ему номер столетия, учитывая, что, к примеру, началом 20 
+    ///столетия был 1901 год.
     /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Tick += Timer_Tick;
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            DispatcherTimer timer = new DispatcherTimer();//Создание экземпляра объекта таймер
+            timer.Tick += Timer_Tick;//Плюсование действий метода Timer_Tick(За каждый пройденный интервал выполняются действия)
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 500);//Интервал обновления
             timer.IsEnabled = true;
         }        
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)//Метод тика таймера
         {
-            if (FirstPage.IsSelected) Exercise.Text = "Задание №1";
+            if (FirstPage.IsSelected) Exercise.Text = "Задание №1";//Задание статусу текущего задания
             if (SecondPage.IsSelected) Exercise.Text = "Задание №2";
             if (ThirdPage.IsSelected) Exercise.Text = "Стандартные возможности";
-            Time.Text = DateTime.Now.ToString("HH:mm");
-            DateNow.Text = DateTime.Now.ToString("dd.MM.yyyy");
+            Time.Text = DateTime.Now.ToString("HH:mm");//Задание текущего времени
+            DateNow.Text = DateTime.Now.ToString("dd.MM.yyyy");//Задание текущей даты
         }        
-        delegate void DelegateFindAllSquares(object sender, RoutedEventArgs e);
-        bool error;
-        Circles circles = new Circles();
+        delegate void DelegateFindAllSquares(object sender, RoutedEventArgs e);//Делегат для осуществления быстрого подсчета всех
+        bool error;//площадей(специально для клавиши в toolbar)
+        Circles circles = new Circles();//Создание экземпляра объекта
         Centennial centennial = new Centennial();
         private void FindSquaresOfCircles_Click(object sender, RoutedEventArgs e)
         {
-            FirstPage.Focus();
-            if ((FirstRadius.Text != "") && (SecondRadius.Text != ""))
+            FirstPage.Focus();//Фокус на первую закладку
+            if ((FirstRadius.Text != "") && (SecondRadius.Text != ""))//Проверка на пустоту значений
             {
                 try
                 {                    
-                    circles.FirstCircle.FindSquare(circles.Radius = Convert.ToInt32(FirstRadius.Text)).ToString();
+                    circles.FirstCircle.FindSquare(circles.Radius = Convert.ToInt32(FirstRadius.Text)).ToString();//Универсальное занесение радиуса и нахождение площади
                     circles.SecondCircle.FindSquare(circles.Radius = Convert.ToInt32(SecondRadius.Text)).ToString();
-                    FirstSquare.Text = circles.FirstCircle.Square.ToString();
+                    FirstSquare.Text = circles.FirstCircle.Square.ToString();//Вывод на экран результатов
                     SecondSquare.Text = circles.SecondCircle.Square.ToString();                    
-                    SwitchDefault(2);
+                    SwitchDefault(2);//Смена фокуса клавиши и работоспособности
                 }
                 catch
                 {
-                    MessageForUser();
+                    MessageForUser();//Отображение шаблона сообщения пользователю
                 }
             }
-            else MessageForInputCheck();
-        }
+            else MessageForInputCheck();//Отображение шаблона сообщения пользователю
+        }/// <summary>
+         /// Вычисление площади кольца
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
 
         private void FindSquareOfRing_Click(object sender, RoutedEventArgs e)
         {
-            if (FindSquareOfRing.IsEnabled)
-            {
-                FirstPage.Focus();
+            FirstPage.Focus();
+            if (FindSquareOfRing.IsEnabled)//Проверка на включенность кнопки
+            {                
                 SquareOfRing.Text = circles.FindSquareOfRing().ToString();
             }
         }
 
         private void FirstRadius_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (!error)
-                e.Handled = "1234567890".IndexOf(e.Text) < 0;
+            if (!error)//Проверка на появление сообщения ошибки (специально для горячих клавиш меню, чтобы не выполнялось занесение данных в
+                e.Handled = "1234567890".IndexOf(e.Text) < 0;//сфокусированные поля
             else e.Handled = true;
             error = false;
         }
 
         private void FindAllSquares_Click(object sender, RoutedEventArgs e)
         {
-            DelegateFindAllSquares Finder = FindSquaresOfCircles_Click;
-            Finder += FindSquareOfRing_Click;
+            DelegateFindAllSquares Finder = FindSquaresOfCircles_Click;//Объявление делегата и последующее присвоение двух методов,
+            Finder += FindSquareOfRing_Click;//а также обращение
             Finder(sender, e);
         }
 
@@ -92,17 +106,21 @@ namespace PW12
             SecondPage.Focus();
             if (Year.Text != "")
             {
-                centennial.Year = Convert.ToInt32(Year.Text);
-                Centennial.Text = centennial.DisplayCentennial().ToString();
+                centennial.Year = Convert.ToInt32(Year.Text);//Занесение данных в объект
+                Centennial.Text = centennial.DisplayCentennial().ToString();//Отображение результата
             }
             else MessageForInputCheck();
         }
         private void MessageForUser()
         {
-            error = true;
-            MessageBox.Show("Причина: " + Circles._infoaboutr1lessorequalr2, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            error = true;//Присвоение false для последующей проверки появления сообщения об ошибки (для горячих клавиш в меню, чтобы не было занесения данных в
+            MessageBox.Show("Причина: " + Circles._infoaboutr1lessorequalr2, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);//сфокусированное поле
         }
-
+        /// <summary>
+        /// Справка
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Support_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Данная программа имеет следующие особенности:\n" +
@@ -110,10 +128,15 @@ namespace PW12
                 "2) Для быстрого закрытия программы можно использовать клавишу Esc\n" +
                 "3) Для открытия доступа к кнопке \"Найти площадь кольца\" неообходимо" +
                 " ввести первый радиус так, чтобы он был больше второго\n" +
-                "3) В открытом меню \"Действия\" можно нажать клавиши Ctrl + 1/2/3," +
-                "в зависимотси от пунктов в меню, для выполнения действий", "Справка", MessageBoxButton.OK, MessageBoxImage.Information);
+                "4) В открытом меню \"Действия\" можно нажать клавиши Ctrl + 1/2/3," +
+                "в зависимотси от пунктов в меню, для выполнения действий\n" +
+                "5) Если не понятно назначение кнопки(кроме стандартных), то можно посмотреть всплывающую подсказку(нужно навестись указателем мыши для этого)", "Справка", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
+        /// <summary>
+        /// О программе
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AboutProgram_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Реализовать расчет задачи:" +
@@ -125,17 +148,29 @@ namespace PW12
                 "соответствующий ему номер столетия, учитывая, что, к примеру, началом 20 " +
                 "столетия был 1901 год.", "О программе", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
+        /// <summary>
+        /// Выход
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
+        /// <summary>
+        /// Событие изменения текста в поле Year
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Year_TextChanged(object sender, TextChangedEventArgs e)
         {
             Centennial.Clear();
         }
-
+        /// <summary>
+        /// Событие изменения текста в поле FirstRadius
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FirstRadius_TextChanged(object sender, TextChangedEventArgs e)
         {
             SwitchDefault(1);
@@ -144,19 +179,27 @@ namespace PW12
             circles.FirstCircle.Clear();
             circles.SecondCircle.Clear();
         }
-
-
+        /// <summary>
+        /// Событие изменения текста поля SecondRadius
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SecondRadius_TextChanged(object sender, TextChangedEventArgs e)
         {
             SwitchDefault(1);
-            SecondSquare.Clear();
+            SecondSquare.Clear();//Очистка значений
             circles.Clear();
-            circles.FirstCircle.Clear();
+            circles.FirstCircle.Clear();//Очистка значений свойств у объектов
             circles.SecondCircle.Clear();
         }
+        /// <summary>
+        /// Событие получения фокуса
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FirstRadius_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (FindSquareOfRing.IsEnabled == true) SwitchDefault(2);
+            if (FindSquareOfRing.IsEnabled == true) SwitchDefault(2);//Выбор фокуса в зависимости от включенной кнопки
             else SwitchDefault(1);
         }
         /// <summary>
@@ -170,20 +213,20 @@ namespace PW12
             {
                 case 1:
                     {
-                        FindSquaresOfCircles.IsEnabled = true;
+                        FindSquaresOfCircles.IsEnabled = true;//Включение кнопки поиска площадей кругов
                         FindSquaresOfCircles.IsDefault = true;
-                        MenuFindSquaresOfCircles.IsEnabled = true;
+                        MenuFindSquaresOfCircles.IsEnabled = true;//Включение пункта меню+контекстное
                         ContextMenuFindSquaresOfCircles.IsEnabled = true;
-                        FindSquareOfRing.IsEnabled = false;
+                        FindSquareOfRing.IsEnabled = false;//Отключение клавиш и пунктов других меню+контекстное
                         MenuFindSquareOfRing.IsEnabled = false;
                         ContextMenuFindSquareOfRing.IsEnabled = false;
-                        DisplayCentennial.IsDefault = false;
-                        SquareOfRing.Clear();
+                        DisplayCentennial.IsDefault = false;//Смена дефолта
+                        SquareOfRing.Clear();//Очистка значения площади кольца
                         break;
                     }
                 case 2:
                     {
-                        FindSquareOfRing.IsEnabled = true;
+                        FindSquareOfRing.IsEnabled = true;//Аналогично другой кнопке
                         FindSquareOfRing.IsDefault = true;
                         MenuFindSquareOfRing.IsEnabled = true;
                         ContextMenuFindSquareOfRing.IsEnabled = true;
@@ -195,19 +238,27 @@ namespace PW12
                     }
                 default:
                     {
-                        FindSquaresOfCircles.IsDefault = false;
+                        FindSquaresOfCircles.IsDefault = false;//Используется для закладки "Нахождение столетия"
                         FindSquareOfRing.IsDefault = false;
                         DisplayCentennial.IsDefault = true;
                         break;
                     }
             }
         }
-
+        /// <summary>
+        /// Событие фокуса поля Year
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Year_GotFocus(object sender, RoutedEventArgs e)
         {
             SwitchDefault(3);
         }
-
+        /// <summary>
+        /// Горячие клавиши меню (должно быть открытым)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (Actions.IsSubmenuOpen)
@@ -217,30 +268,40 @@ namespace PW12
                 else if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.D3) DisplayCentennial_Click(sender, e);                
             }                   
         }
-
-        private void Actions_Click(object sender, RoutedEventArgs e)
-        {
-            MenuFindSquaresOfCircles.Focus();
-        }
+        /// <summary>
+        /// Шаблонное сообщение пользователю
+        /// </summary>
         private void MessageForInputCheck()
         {
             error = true;
             MessageBox.Show("Необходимо ввести число для дальнейшего выполнения рассчетов!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-
+        /// <summary>
+        /// Проверка фокуса закладок для установки фокуса внутри них
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TabItem_GotFocus(object sender, RoutedEventArgs e)
         {
             if (e.Source == FirstPage) FirstRadius.Focus();            
             if (e.Source == SecondPage) Year.Focus();            
         }
-
+        /// <summary>
+        /// Шаблонное заполнение для контекстного меню для радиусов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AutoFillRadiuses_Click(object sender, RoutedEventArgs e)
         {
             FirstRadius.Text = "4";
             SecondRadius.Text = "2";
         }
 
-
+        /// <summary>
+        /// Шаблонное заполнение для контекстного меню для года
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AutoFillYear_Click(object sender, RoutedEventArgs e)
         {
             Year.Text = DateTime.Now.ToString("yyyy");

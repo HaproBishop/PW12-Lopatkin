@@ -827,7 +827,7 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Menu VerticalAlignment="Top" Focusable="False">
-            <MenuItem x:Name="Actions" Header="Действия" Focusable="False" Click="Actions_Click">
+            <MenuItem x:Name="Actions" Header="Действия" Focusable="False">
                 <MenuItem.Icon>
                     <Image Source="Icons/SettingsOnWhiteIco.ico"/>
                 </MenuItem.Icon>
