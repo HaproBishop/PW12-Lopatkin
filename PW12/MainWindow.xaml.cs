@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using CirclesAndYearsLibrary;
 
 namespace PW12
@@ -24,7 +25,17 @@ namespace PW12
         public MainWindow()
         {
             InitializeComponent();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Tick += Timer_Tick;
+            timer.Interval = new TimeSpan(0, 0, 0, 1);
+            timer.IsEnabled = true;
+        }        
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            Time.Text = DateTime.Now.ToString("HH:mm");
+            DateNow.Text = DateTime.Now.ToString("dd.mm.yyyy");
         }
+
         delegate void DelegateFindAllSquares(object sender, RoutedEventArgs e);
         bool error;
         Circles circles = new Circles();

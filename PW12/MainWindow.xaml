@@ -811,6 +811,12 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="289*"/>
+            <RowDefinition Height="23*"/>
+        </Grid.RowDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFB55DFF" Offset="0"/>
@@ -833,7 +839,7 @@
             <MenuItem Header="О программе" Click="AboutProgram_Click" Focusable="False"/>
             <MenuItem Header="Выход" Click="Exit_Click" Focusable="False"/>
         </Menu>
-        <ToolBar VerticalAlignment="Top" Margin="0,24,0,0" Height="24" Focusable="False">
+        <ToolBar VerticalAlignment="Top" Height="24" Focusable="False" Grid.Row="1">
             <Button x:Name="FindAllSquares" ToolTip="Найти площадь кругов и кольца" Click="FindAllSquares_Click" Focusable="False">
                 <Image Source="/Icons/FindItIco.ico"/>
             </Button>
@@ -854,9 +860,9 @@
                 <Image Source="Icons/Exit.ico"/>
             </Button>
         </ToolBar>
-        <TabControl Margin="0,48,0,0">
+        <TabControl Margin="0,24,0,22" Grid.Row="1" Grid.RowSpan="3">
             <TabItem Header="Нахождение кольца" Margin="0,0,-4,-2">
-                <Grid>
+                <Grid x:Name="Input">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -870,6 +876,11 @@
                             <GradientStop Color="#FEB65FFF" Offset="0.793"/>
                         </LinearGradientBrush>
                     </Grid.Background>
+                    <Grid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Автоматически заполнить"/>
+                        </ContextMenu>
+                    </Grid.ContextMenu>
                     <GroupBox Header="Работа с радиусами" HorizontalAlignment="Center" Height="102" VerticalAlignment="Top" Width="248" Margin="32,10,44.667,0">
                         <Grid>
                             <Label Content="Первый радиус:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
@@ -944,5 +955,10 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <StatusBar VerticalAlignment="Bottom" Grid.Row="3" Background="#FFB55DFF">
+            <TextBlock x:Name="Time" Foreground="AliceBlue"/>
+            <Separator/>
+            <TextBlock x:Name="DateNow" Foreground="AliceBlue"/>
+        </StatusBar>
     </Grid>
 </Window>
