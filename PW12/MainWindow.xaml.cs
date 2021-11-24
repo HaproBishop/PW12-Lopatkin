@@ -27,29 +27,32 @@ namespace PW12
             InitializeComponent();
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += Timer_Tick;
-            timer.Interval = new TimeSpan(0, 0, 0, 1);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             timer.IsEnabled = true;
         }        
         private void Timer_Tick(object sender, EventArgs e)
         {
+            if (FirstPage.IsSelected) Exercise.Text = "Задание №1";
+            if (SecondPage.IsSelected) Exercise.Text = "Задание №2";
+            if (ThirdPage.IsSelected) Exercise.Text = "Стандартные возможности";
             Time.Text = DateTime.Now.ToString("HH:mm");
-            DateNow.Text = DateTime.Now.ToString("dd.mm.yyyy");
-        }
-
+            DateNow.Text = DateTime.Now.ToString("dd.MM.yyyy");
+        }        
         delegate void DelegateFindAllSquares(object sender, RoutedEventArgs e);
         bool error;
         Circles circles = new Circles();
         Centennial centennial = new Centennial();
         private void FindSquaresOfCircles_Click(object sender, RoutedEventArgs e)
         {
+            FirstPage.Focus();
             if ((FirstRadius.Text != "") && (SecondRadius.Text != ""))
             {
                 try
-                {
+                {                    
                     circles.FirstCircle.FindSquare(circles.Radius = Convert.ToInt32(FirstRadius.Text)).ToString();
                     circles.SecondCircle.FindSquare(circles.Radius = Convert.ToInt32(SecondRadius.Text)).ToString();
                     FirstSquare.Text = circles.FirstCircle.Square.ToString();
-                    SecondSquare.Text = circles.SecondCircle.Square.ToString();
+                    SecondSquare.Text = circles.SecondCircle.Square.ToString();                    
                     SwitchDefault(2);
                 }
                 catch
@@ -62,7 +65,11 @@ namespace PW12
 
         private void FindSquareOfRing_Click(object sender, RoutedEventArgs e)
         {
-            if (FindSquareOfRing.IsEnabled) SquareOfRing.Text = circles.FindSquareOfRing().ToString();
+            if (FindSquareOfRing.IsEnabled)
+            {
+                FirstPage.Focus();
+                SquareOfRing.Text = circles.FindSquareOfRing().ToString();
+            }
         }
 
         private void FirstRadius_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -82,6 +89,7 @@ namespace PW12
 
         private void DisplayCentennial_Click(object sender, RoutedEventArgs e)
         {
+            SecondPage.Focus();
             if (Year.Text != "")
             {
                 centennial.Year = Convert.ToInt32(Year.Text);
@@ -165,8 +173,10 @@ namespace PW12
                         FindSquaresOfCircles.IsEnabled = true;
                         FindSquaresOfCircles.IsDefault = true;
                         MenuFindSquaresOfCircles.IsEnabled = true;
+                        ContextMenuFindSquaresOfCircles.IsEnabled = true;
                         FindSquareOfRing.IsEnabled = false;
                         MenuFindSquareOfRing.IsEnabled = false;
+                        ContextMenuFindSquareOfRing.IsEnabled = false;
                         DisplayCentennial.IsDefault = false;
                         SquareOfRing.Clear();
                         break;
@@ -176,8 +186,10 @@ namespace PW12
                         FindSquareOfRing.IsEnabled = true;
                         FindSquareOfRing.IsDefault = true;
                         MenuFindSquareOfRing.IsEnabled = true;
+                        ContextMenuFindSquareOfRing.IsEnabled = true;
                         FindSquaresOfCircles.IsEnabled = false;
                         MenuFindSquaresOfCircles.IsEnabled = false;
+                        ContextMenuFindSquaresOfCircles.IsEnabled = false;
                         DisplayCentennial.IsDefault = false;
                         break;
                     }
@@ -214,6 +226,24 @@ namespace PW12
         {
             error = true;
             MessageBox.Show("Необходимо ввести число для дальнейшего выполнения рассчетов!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void TabItem_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (e.Source == FirstPage) FirstRadius.Focus();            
+            if (e.Source == SecondPage) Year.Focus();            
+        }
+
+        private void AutoFillRadiuses_Click(object sender, RoutedEventArgs e)
+        {
+            FirstRadius.Text = "4";
+            SecondRadius.Text = "2";
+        }
+
+
+        private void AutoFillYear_Click(object sender, RoutedEventArgs e)
+        {
+            Year.Text = DateTime.Now.ToString("yyyy");
         }
     }
 }

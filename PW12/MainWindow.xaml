@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PW12"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="PW12.MainWindow"
         mc:Ignorable="d"
-        Title="Ring And Centennial" MinHeight="330" MinWidth="605" ResizeMode="CanMinimize" Icon="Icons\LogoIco.ico" KeyDown="Window_KeyDown" Height="390" Width="666.333" WindowStartupLocation="CenterScreen">
+        Title="Ring And Centennial" ResizeMode="CanMinimize" Icon="Icons\LogoIco.ico" KeyDown="Window_KeyDown" Height="310.667" Width="563" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -812,10 +812,10 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="24*"/>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="289*"/>
-            <RowDefinition Height="23*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -848,24 +848,24 @@
                 <Image Source="/Icons/txt.ico"/>
             </Button>
             <Separator/>
-            <Button Click="Support_Click" Focusable="False">
+            <Button Click="Support_Click" Focusable="False" ToolTip="Открытие справки">
                 <Image Source="Icons/Support.ico" ToolTip="Показать справку"/>
             </Button>
             <Separator/>
-            <Button Click="AboutProgram_Click"  Focusable="False">
+            <Button Click="AboutProgram_Click" Focusable="False" ToolTip="Узнать больше о программе">
                 <Image Source="Icons/AboutProgram.ico"/>
             </Button>
             <Separator/>
-            <Button Click="Exit_Click" Focusable="False">
+            <Button Click="Exit_Click" Focusable="False" ToolTip="Выход(закрытие программы)">
                 <Image Source="Icons/Exit.ico"/>
             </Button>
         </ToolBar>
         <TabControl Margin="0,24,0,22" Grid.Row="1" Grid.RowSpan="3">
-            <TabItem Header="Нахождение кольца" Margin="0,0,-4,-2">
+            <TabItem x:Name="FirstPage" Header="Нахождение кольца" Margin="0,0,-4,-2" GotFocus="TabItem_GotFocus">
                 <Grid x:Name="Input">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="271"/>
+                        <ColumnDefinition Width="383"/>
                     </Grid.ColumnDefinitions>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -878,37 +878,49 @@
                     </Grid.Background>
                     <Grid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Автоматически заполнить"/>
+                            <MenuItem x:Name="AutoFillRadiuses" Header="Автоматически заполнить радиусы" ToolTip="Заполняет первый и второй радиус. 4 и 2 соответственно" Click="AutoFillRadiuses_Click"/>
+                            <MenuItem x:Name="ContextMenuFindSquaresOfCircles" Header="Найти площади кругов" Click="FindSquaresOfCircles_Click"/>
+                            <MenuItem x:Name="ContextMenuFindSquareOfRing" Header="Найти площадь кольца" IsEnabled="False" Click="FindSquareOfRing_Click"/>
                         </ContextMenu>
                     </Grid.ContextMenu>
-                    <GroupBox Header="Работа с радиусами" HorizontalAlignment="Center" Height="102" VerticalAlignment="Top" Width="248" Margin="32,10,44.667,0">
+                    <GroupBox Header="Работа с радиусами" HorizontalAlignment="Center" Height="102" VerticalAlignment="Top" Width="248" Margin="10,10,13,0">
                         <Grid>
                             <Label Content="Первый радиус:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                            <TextBox x:Name="FirstRadius" HorizontalAlignment="Left" Height="23" Margin="117,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="5" PreviewTextInput="FirstRadius_PreviewTextInput" TextChanged="FirstRadius_TextChanged" GotFocus="FirstRadius_GotFocus"/>
+                            <TextBox x:Name="FirstRadius" HorizontalAlignment="Left" Height="23" Margin="117,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="5" PreviewTextInput="FirstRadius_PreviewTextInput" TextChanged="FirstRadius_TextChanged" GotFocus="FirstRadius_GotFocus" ToolTip="Здесь необходимо ввести радиус первого круга, чтобы найти, относительно него, его площадь и площадь кольца"/>
                             <Label Content="Второй радиус:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-                            <TextBox x:Name="SecondRadius" HorizontalAlignment="Left" Height="23" Margin="117,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="5" PreviewTextInput="FirstRadius_PreviewTextInput" GotFocus="FirstRadius_GotFocus" TextChanged="SecondRadius_TextChanged"/>
+                            <TextBox x:Name="SecondRadius" HorizontalAlignment="Left" Height="23" Margin="117,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="5" PreviewTextInput="FirstRadius_PreviewTextInput" GotFocus="FirstRadius_GotFocus" TextChanged="SecondRadius_TextChanged" ToolTip="Здесь необходимо ввести радиус второго круга, чтобы найти, относительно него, его площадь и площадь кольца"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox Header="Площади" HorizontalAlignment="Left" Height="127" Margin="41.333,10,0,0" VerticalAlignment="Top" Width="253" Grid.Column="1">
+                    <GroupBox Header="Площади" HorizontalAlignment="Left" Height="152" Margin="10,10,0,0" VerticalAlignment="Top" Width="253" Grid.Column="1">
                         <Grid>
                             <Label Content="Первая площадь:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                            <TextBox x:Name="FirstSquare" HorizontalAlignment="Left" Height="23" Margin="120,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False"/>
+                            <TextBox x:Name="FirstSquare" HorizontalAlignment="Left" Height="23" Margin="120,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False" ToolTip="Здесь будет отображена найденная площадь первого круга"/>
                             <Label Content="Вторая площадь:" HorizontalAlignment="Left" Margin="12,41,0,0" VerticalAlignment="Top"/>
-                            <TextBox x:Name="SecondSquare" HorizontalAlignment="Left" Height="23" Margin="120,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False"/>
-                            <Label Content="Площадь кольца:" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
-                            <TextBox x:Name="SquareOfRing" HorizontalAlignment="Left" Height="23" Margin="120,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False"/>
-
+                            <TextBox x:Name="SecondSquare" HorizontalAlignment="Left" Height="23" Margin="120,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False" ToolTip="Здесь будет отображена найденная площадь второго круга"/>
+                            <Label Content="Площадь кольца:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="SquareOfRing" HorizontalAlignment="Left" Height="23" Margin="120,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False" ToolTip="Здесь будет отображена найденная площадь кольца"/>
+                            <Separator HorizontalAlignment="Left" Height="10" Margin="15,72,0,0" VerticalAlignment="Top" Width="210" Background="Black"/>
                         </Grid>
                     </GroupBox>
-                    <Button x:Name="FindSquaresOfCircles" Content="Найти площади кругов" HorizontalAlignment="Left" Margin="32,117,0,0" VerticalAlignment="Top" Width="248" Click="FindSquaresOfCircles_Click" Focusable="False"/>
-                    <Button x:Name="FindSquareOfRing" Content="Найти площадь кольца" HorizontalAlignment="Left" Margin="41.333,142,0,0" VerticalAlignment="Top" Width="253" Click="FindSquareOfRing_Click" IsEnabled="False" IsDefault="True" Focusable="False" Grid.Column="1"/>
+                    <Button x:Name="FindSquaresOfCircles" Content="Найти площади кругов" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top" Width="248" Click="FindSquaresOfCircles_Click" Focusable="False" Height="20" ToolTip="Кнопка, при нажатии которой вычисляется площадь всех кругов"/>
+                    <Button x:Name="FindSquareOfRing" Content="Найти площадь кольца" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Width="248" Click="FindSquareOfRing_Click" IsEnabled="False" IsDefault="True" Focusable="False" Height="20" ToolTip="Кнопка, при нажатии которой вычисляется площадь кольца"/>
+                    <Separator HorizontalAlignment="Left" Height="10" Margin="179,87,0,0" VerticalAlignment="Top" Width="184" Background="Black" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+                        <Separator.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Separator.RenderTransform>
+                    </Separator>
                 </Grid>
             </TabItem>
-            <TabItem Header="Нахождение столетия" Margin="3,0,-2,0">
+            <TabItem x:Name="SecondPage" Header="Нахождение столетия" Margin="3,0,-2,0" GotFocus="TabItem_GotFocus">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="265"/>
+                        <ColumnDefinition Width="286"/>
                     </Grid.ColumnDefinitions>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -919,23 +931,34 @@
                             <GradientStop Color="#FEB65FFF" Offset="0.793"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <GroupBox Header="Ввод года" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="190" Margin="90,10,40,0">
+                    <Grid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Автоматически заполнить год" ToolTip="Заполняет строку текущим годом" Click="AutoFillYear_Click"/>
+                            <MenuItem Header="Отобразить столетие" Click="DisplayCentennial_Click"/>
+                        </ContextMenu>
+                    </Grid.ContextMenu>
+                    <GroupBox Header="Ввод года" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="190" Margin="38,10,37,0">
                         <Grid>
                             <Label Content="Год:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                            <TextBox x:Name="Year" HorizontalAlignment="Left" Height="23" Margin="56,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="8" TextChanged="Year_TextChanged" GotFocus="Year_GotFocus" PreviewTextInput="FirstRadius_PreviewTextInput"/>
+                            <TextBox x:Name="Year" HorizontalAlignment="Left" Height="23" Margin="56,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="8" TextChanged="Year_TextChanged" GotFocus="Year_GotFocus" PreviewTextInput="FirstRadius_PreviewTextInput" ToolTip="Здесь необходимо ввести год, чтобы узнать, к какому столетию он относится"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Header="Результат" HorizontalAlignment="Left" Height="75" Margin="41,10,0,0" VerticalAlignment="Top" Width="209">
+                    <GroupBox Grid.Column="1" Header="Результат" HorizontalAlignment="Left" Height="75" Margin="38,10,0,0" VerticalAlignment="Top" Width="209">
                         <Grid>
-                            <TextBox x:Name="Centennial" HorizontalAlignment="Left" Height="23" Margin="78,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6" IsReadOnly="True" PreviewTextInput="FirstRadius_PreviewTextInput" Focusable="False"/>
+                            <TextBox x:Name="Centennial" HorizontalAlignment="Left" Height="23" Margin="78,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6" IsReadOnly="True" PreviewTextInput="FirstRadius_PreviewTextInput" Focusable="False" ToolTip="Здесь отображается столетие заданного года"/>
                             <Label Content="Столетие:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                         </Grid>
                     </GroupBox>
-                    <Button x:Name="DisplayCentennial" Content="Отобразить столетие" HorizontalAlignment="Left" Margin="235,99,0,0" VerticalAlignment="Top" Width="173" Click="DisplayCentennial_Click" Focusable="False" Grid.ColumnSpan="2"/>
+                    <Button x:Name="DisplayCentennial" Content="Отобразить столетие" HorizontalAlignment="Left" Margin="184,102,0,0" VerticalAlignment="Top" Width="173" Click="DisplayCentennial_Click" Focusable="False" Height="20" Grid.ColumnSpan="2" ToolTip="Клавиша для отображения столетия во вкладке 'Результат'"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Стандартные возможности" Margin="1,0,-2,0">
+            <TabItem x:Name="ThirdPage" Header="Стандартные возможности" Margin="1,0,-2,0">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="119*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="108*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FFB55DFF" Offset="0"/>
@@ -945,19 +968,21 @@
                             <GradientStop Color="#FEB65FFF" Offset="0.793"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <GroupBox Header="Стандартные возможности" HorizontalAlignment="Center" Height="114" VerticalAlignment="Top" Width="248" Margin="170,10,175,0">
+                    <GroupBox Header="Стандартные возможности" HorizontalAlignment="Center" Height="114" VerticalAlignment="Top" Width="296" Margin="0,10,0,0" Grid.Column="1">
                         <Grid>
-                            <Button x:Name="Support" Content="Справка" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="216" Click="Support_Click"/>
-                            <Button x:Name="AboutProgram" Content="О программе" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="216" Click="AboutProgram_Click"/>
-                            <Button x:Name="Exit" Content="Выход" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="216" Click="Exit_Click" IsCancel="True" Focusable="False"/>
+                            <Button x:Name="Support" Content="Справка" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top" Width="216" Click="Support_Click"/>
+                            <Button x:Name="AboutProgram" Content="О программе" HorizontalAlignment="Left" Margin="33,35,0,0" VerticalAlignment="Top" Width="216" Click="AboutProgram_Click"/>
+                            <Button x:Name="Exit" Content="Выход" HorizontalAlignment="Left" Margin="33,60,0,0" VerticalAlignment="Top" Width="216" Click="Exit_Click" IsCancel="True" Focusable="False"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
             </TabItem>
         </TabControl>
-        <StatusBar VerticalAlignment="Bottom" Grid.Row="3" Background="#FFB55DFF">
+        <StatusBar VerticalAlignment="Bottom" Grid.Row="2" Background="#FFB55DFF" Grid.RowSpan="2">
+            <TextBlock x:Name="Exercise" Foreground="AliceBlue"/>
+            <Separator Width="2" Background="Black"/>
             <TextBlock x:Name="Time" Foreground="AliceBlue"/>
-            <Separator/>
+            <Separator Width="2" Background="Black"/>
             <TextBlock x:Name="DateNow" Foreground="AliceBlue"/>
         </StatusBar>
     </Grid>
