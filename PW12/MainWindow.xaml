@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PW12"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="PW12.MainWindow"
         mc:Ignorable="d"
-        Title="Ring And Centennial" MinHeight="601" MinWidth="335" ResizeMode="CanResize" Icon="Icons\LogoIco.ico" KeyDown="Window_KeyDown" Height="577" Width="0">
+        Title="Ring And Centennial" MinHeight="330" MinWidth="605" ResizeMode="CanMinimize" Icon="Icons\LogoIco.ico" KeyDown="Window_KeyDown" Height="390" Width="666.333" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -602,6 +602,213 @@
                 </MultiTrigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="FocusVisual2">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <LinearGradientBrush x:Key="TabItem.Static.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#4C6800FF" Offset="0.0"/>
+            <GradientStop Color="#4C6800FF" Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TabItem.Static.Border" Color="#ACACAC"/>
+        <LinearGradientBrush x:Key="TabItem.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#4C6800FF" Offset="0.0"/>
+            <GradientStop Color="#4C6800FF" Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TabItem.MouseOver.Border" Color="Black"/>
+        <SolidColorBrush x:Key="TabItem.Disabled.Background" Color="#F0F0F0"/>
+        <SolidColorBrush x:Key="TabItem.Disabled.Border" Color="#D9D9D9"/>
+        <SolidColorBrush x:Key="TabItem.Selected.Border" Color="#FF2F00FF"/>
+        <SolidColorBrush x:Key="TabItem.Selected.Background" Color="#66FA8EFF"/>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="{StaticResource TabItem.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabItem.Static.Border}"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="6,2,6,2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+                            <Border x:Name="mainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}" Margin="0">
+                                <Border x:Name="innerBorder" BorderBrush="{StaticResource TabItem.Selected.Border}" BorderThickness="1,1,1,0" Background="{StaticResource TabItem.Selected.Background}" Margin="-1" Opacity="0"/>
+                            </Border>
+                            <ContentPresenter x:Name="contentPresenter" ContentSource="Header" Focusable="False" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="-2,-2,0,-2"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="-2,0,-2,-2"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="0,-2,-2,-2"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="-2,-2,-2,0"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.Background>
@@ -647,37 +854,95 @@
                 <Image Source="Icons/Exit.ico"/>
             </Button>
         </ToolBar>
-        <GroupBox Header="Работа с радиусами" HorizontalAlignment="Center" Height="238" VerticalAlignment="Top" Width="248" Margin="0,53,0,0">
-            <Grid>
-                <Label Content="Первый радиус:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="FirstRadius" HorizontalAlignment="Left" Height="23" Margin="117,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="5" PreviewTextInput="FirstRadius_PreviewTextInput" TextChanged="FirstRadius_TextChanged" GotFocus="FirstRadius_GotFocus"/>
-                <Label Content="Второй радиус:" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="SecondRadius" HorizontalAlignment="Left" Height="23" Margin="117,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="5" PreviewTextInput="FirstRadius_PreviewTextInput" GotFocus="FirstRadius_GotFocus" TextChanged="SecondRadius_TextChanged"/>
-                <Label Content="Первая площадь:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="FirstSquare" HorizontalAlignment="Left" Height="23" Margin="117,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False"/>
-                <Label Content="Вторая площадь:" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="SecondSquare" HorizontalAlignment="Left" Height="23" Margin="117,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False"/>
-                <Button x:Name="FindSquaresOfCircles" Content="Найти площади кругов" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="212" Click="FindSquaresOfCircles_Click" Focusable="False"/>
-                <TextBox x:Name="SquareOfRing" HorizontalAlignment="Left" Height="23" Margin="117,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False"/>
-                <Label Content="Площадь кольца:" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="FindSquareOfRing" Content="Найти площадь кольца" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="212" Click="FindSquareOfRing_Click" IsEnabled="False" IsDefault="True" Focusable="False"/>
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="Работа с годами" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="248" Margin="0,296,0,0">
-            <Grid>
-                <Label Content="Год:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="Year" HorizontalAlignment="Left" Height="23" Margin="117,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="8" TextChanged="Year_TextChanged" GotFocus="Year_GotFocus" PreviewTextInput="FirstRadius_PreviewTextInput"/>
-                <Label Content="Столетие:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="Centennial" HorizontalAlignment="Left" Height="23" Margin="117,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6" IsReadOnly="True" PreviewTextInput="FirstRadius_PreviewTextInput" Focusable="False"/>
-                <Button x:Name="DisplayCentennial" Content="Отобразить столетие" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="212" Click="DisplayCentennial_Click" Focusable="False"/>
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="Стандартные возможности" HorizontalAlignment="Center" Height="114" Margin="32,430,32,0" VerticalAlignment="Top" Width="248">
-            <Grid>
-                <Button x:Name="Support" Content="Справка" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="216" Click="Support_Click"/>
-                <Button x:Name="AboutProgram" Content="О программе" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="216" Click="AboutProgram_Click"/>
-                <Button x:Name="Exit" Content="Выход" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="216" Click="Exit_Click" IsCancel="True" Focusable="False"/>
-            </Grid>
-        </GroupBox>
+        <TabControl Margin="0,48,0,0">
+            <TabItem Header="Нахождение кольца" Margin="0,0,-4,-2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFB55DFF" Offset="0"/>
+                            <GradientStop Color="#FF795BFF" Offset="0.527"/>
+                            <GradientStop Color="#FEFA8EFF" Offset="1"/>
+                            <GradientStop Color="#FFAF75FF" Offset="0.266"/>
+                            <GradientStop Color="#FEB65FFF" Offset="0.793"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <GroupBox Header="Работа с радиусами" HorizontalAlignment="Center" Height="102" VerticalAlignment="Top" Width="248" Margin="32,10,44.667,0">
+                        <Grid>
+                            <Label Content="Первый радиус:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="FirstRadius" HorizontalAlignment="Left" Height="23" Margin="117,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="5" PreviewTextInput="FirstRadius_PreviewTextInput" TextChanged="FirstRadius_TextChanged" GotFocus="FirstRadius_GotFocus"/>
+                            <Label Content="Второй радиус:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="SecondRadius" HorizontalAlignment="Left" Height="23" Margin="117,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="5" PreviewTextInput="FirstRadius_PreviewTextInput" GotFocus="FirstRadius_GotFocus" TextChanged="SecondRadius_TextChanged"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Площади" HorizontalAlignment="Left" Height="127" Margin="41.333,10,0,0" VerticalAlignment="Top" Width="253" Grid.Column="1">
+                        <Grid>
+                            <Label Content="Первая площадь:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="FirstSquare" HorizontalAlignment="Left" Height="23" Margin="120,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False"/>
+                            <Label Content="Вторая площадь:" HorizontalAlignment="Left" Margin="12,41,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="SecondSquare" HorizontalAlignment="Left" Height="23" Margin="120,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False"/>
+                            <Label Content="Площадь кольца:" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="SquareOfRing" HorizontalAlignment="Left" Height="23" Margin="120,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" IsReadOnly="True" Focusable="False"/>
+
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="FindSquaresOfCircles" Content="Найти площади кругов" HorizontalAlignment="Left" Margin="32,117,0,0" VerticalAlignment="Top" Width="248" Click="FindSquaresOfCircles_Click" Focusable="False"/>
+                    <Button x:Name="FindSquareOfRing" Content="Найти площадь кольца" HorizontalAlignment="Left" Margin="41.333,142,0,0" VerticalAlignment="Top" Width="253" Click="FindSquareOfRing_Click" IsEnabled="False" IsDefault="True" Focusable="False" Grid.Column="1"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Нахождение столетия" Margin="3,0,-2,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFB55DFF" Offset="0"/>
+                            <GradientStop Color="#FF795BFF" Offset="0.527"/>
+                            <GradientStop Color="#FEFA8EFF" Offset="1"/>
+                            <GradientStop Color="#FFAF75FF" Offset="0.266"/>
+                            <GradientStop Color="#FEB65FFF" Offset="0.793"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <GroupBox Header="Ввод года" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="190" Margin="90,10,40,0">
+                        <Grid>
+                            <Label Content="Год:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="Year" HorizontalAlignment="Left" Height="23" Margin="56,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="8" TextChanged="Year_TextChanged" GotFocus="Year_GotFocus" PreviewTextInput="FirstRadius_PreviewTextInput"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Результат" HorizontalAlignment="Left" Height="75" Margin="41,10,0,0" VerticalAlignment="Top" Width="209">
+                        <Grid>
+                            <TextBox x:Name="Centennial" HorizontalAlignment="Left" Height="23" Margin="78,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" MaxLength="6" IsReadOnly="True" PreviewTextInput="FirstRadius_PreviewTextInput" Focusable="False"/>
+                            <Label Content="Столетие:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="DisplayCentennial" Content="Отобразить столетие" HorizontalAlignment="Left" Margin="235,99,0,0" VerticalAlignment="Top" Width="173" Click="DisplayCentennial_Click" Focusable="False" Grid.ColumnSpan="2"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Стандартные возможности" Margin="1,0,-2,0">
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFB55DFF" Offset="0"/>
+                            <GradientStop Color="#FF795BFF" Offset="0.527"/>
+                            <GradientStop Color="#FEFA8EFF" Offset="1"/>
+                            <GradientStop Color="#FFAF75FF" Offset="0.266"/>
+                            <GradientStop Color="#FEB65FFF" Offset="0.793"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <GroupBox Header="Стандартные возможности" HorizontalAlignment="Center" Height="114" VerticalAlignment="Top" Width="248" Margin="170,10,175,0">
+                        <Grid>
+                            <Button x:Name="Support" Content="Справка" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="216" Click="Support_Click"/>
+                            <Button x:Name="AboutProgram" Content="О программе" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="216" Click="AboutProgram_Click"/>
+                            <Button x:Name="Exit" Content="Выход" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="216" Click="Exit_Click" IsCancel="True" Focusable="False"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
