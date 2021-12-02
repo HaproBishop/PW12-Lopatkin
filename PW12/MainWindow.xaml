@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PW12"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="PW12.MainWindow"
         mc:Ignorable="d"
-        Title="Ring And Centennial" ResizeMode="CanMinimize" Icon="Icons\LogoIco.ico" KeyDown="Window_KeyDown" Height="310.667" Width="563" WindowStartupLocation="CenterScreen">
+        Title="Ring And Centennial" ResizeMode="CanMinimize" Icon="LogoIco.ico" KeyDown="Window_KeyDown" Height="310.667" Width="563" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -246,7 +246,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <SolidColorBrush x:Key="Menu.Static.Background" Color="#FF8B00FF"/>
+        <SolidColorBrush x:Key="Menu.Static.Background" Color="#FFAD4BFF"/>
         <Style TargetType="{x:Type Menu}">
             <Setter Property="Background" Value="{StaticResource Menu.Static.Background}"/>
             <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
@@ -638,8 +638,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TabItem}">
                         <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
-                            <Border x:Name="mainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}" Margin="0">
-                                <Border x:Name="innerBorder" BorderBrush="{StaticResource TabItem.Selected.Border}" BorderThickness="1,1,1,0" Background="{StaticResource TabItem.Selected.Background}" Margin="-1" Opacity="0"/>
+                            <Border x:Name="mainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}" Margin="0" CornerRadius="2">
+                                <Border x:Name="innerBorder" BorderBrush="{StaticResource TabItem.Selected.Border}" BorderThickness="1,1,1,0" Background="{StaticResource TabItem.Selected.Background}" Margin="-1" Opacity="0" CornerRadius="2"/>
                             </Border>
                             <ContentPresenter x:Name="contentPresenter" ContentSource="Header" Focusable="False" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                         </Grid>
@@ -841,27 +841,47 @@
         </Menu>
         <ToolBar VerticalAlignment="Top" Height="24" Focusable="False" Grid.Row="1">
             <Button x:Name="FindAllSquares" ToolTip="Найти площадь кругов и кольца" Click="FindAllSquares_Click" Focusable="False">
-                <Image Source="/Icons/FindItIco.ico"/>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Icons/FindItIco.ico"/>
+                    <Separator Opacity="0"/>
+                    <TextBlock Text="Найти"/>
+                </StackPanel>
             </Button>
             <Separator/>
             <Button ToolTip="Отобразить столетие" Click="DisplayCentennial_Click" Focusable="False">
+                <StackPanel Orientation="Horizontal">
                 <Image Source="/Icons/txt.ico"/>
+                    <Separator Opacity="0"/>
+                    <TextBlock Text="Отобразить"/>
+                </StackPanel>
             </Button>
             <Separator/>
             <Button Click="Support_Click" Focusable="False" ToolTip="Открытие справки">
+                <StackPanel Orientation="Horizontal">
                 <Image Source="Icons/Support.ico" ToolTip="Показать справку"/>
+                    <Separator Opacity="0"/>
+                    <TextBlock Text="Справка"/>
+                </StackPanel>
             </Button>
             <Separator/>
             <Button Click="AboutProgram_Click" Focusable="False" ToolTip="Узнать больше о программе">
+                <StackPanel Orientation="Horizontal">
                 <Image Source="Icons/AboutProgram.ico"/>
+                    <Separator Opacity="0"/>
+                    <TextBlock Text="О программе"/>
+                </StackPanel>
             </Button>
             <Separator/>
-            <Button Click="Exit_Click" Focusable="False" ToolTip="Выход(закрытие программы)">
+            <Button Click="Exit_Click" Focusable="False" ToolTip="Выход(закрытие программы)" IsCancel="True">
+                <StackPanel Orientation="Horizontal">
                 <Image Source="Icons/Exit.ico"/>
+                <Separator Opacity="0"/>
+                <TextBlock Text="Выход"/>
+                </StackPanel>
             </Button>
         </ToolBar>
         <TabControl Margin="0,24,0,22" Grid.Row="1" Grid.RowSpan="3">
-            <TabItem x:Name="FirstPage" Header="Нахождение кольца" Margin="0,0,-4,-2" GotFocus="TabItem_GotFocus">
+            <TabItem x:Name="FirstPage" Header="Нахождение кольца" GotFocus="TabItem_GotFocus">
                 <Grid x:Name="Input">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="271"/>
@@ -916,7 +936,7 @@
                     </Separator>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="SecondPage" Header="Нахождение столетия" Margin="3,0,-2,0" GotFocus="TabItem_GotFocus">
+            <TabItem x:Name="SecondPage" Header="Нахождение столетия"  GotFocus="TabItem_GotFocus">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="265"/>
@@ -952,7 +972,7 @@
                     <Button x:Name="DisplayCentennial" Content="Отобразить столетие" HorizontalAlignment="Left" Margin="184,102,0,0" VerticalAlignment="Top" Width="173" Click="DisplayCentennial_Click" Focusable="False" Height="20" Grid.ColumnSpan="2" ToolTip="Клавиша для отображения столетия во вкладке 'Результат'"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="ThirdPage" Header="Стандартные возможности" Margin="1,0,-2,0">
+            <TabItem x:Name="ThirdPage" Header="Стандартные возможности">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="119*"/>
@@ -972,7 +992,7 @@
                         <Grid>
                             <Button x:Name="Support" Content="Справка" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top" Width="216" Click="Support_Click"/>
                             <Button x:Name="AboutProgram" Content="О программе" HorizontalAlignment="Left" Margin="33,35,0,0" VerticalAlignment="Top" Width="216" Click="AboutProgram_Click"/>
-                            <Button x:Name="Exit" Content="Выход" HorizontalAlignment="Left" Margin="33,60,0,0" VerticalAlignment="Top" Width="216" Click="Exit_Click" IsCancel="True" Focusable="False"/>
+                            <Button x:Name="Exit" Content="Выход" HorizontalAlignment="Left" Margin="33,60,0,0" VerticalAlignment="Top" Width="216" Click="Exit_Click"/>
                         </Grid>
                     </GroupBox>
                 </Grid>

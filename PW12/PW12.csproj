@@ -99,9 +99,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\LogoIco.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="LogoIco.ico" />
   </ItemGroup>
   <ItemGroup>
