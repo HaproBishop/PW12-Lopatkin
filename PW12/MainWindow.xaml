@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PW12"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="PW12.MainWindow"
         mc:Ignorable="d"
-        Title="Ring And Centennial" ResizeMode="CanMinimize" Icon="LogoIco.ico" KeyDown="Window_KeyDown" Height="310.667" Width="563" WindowStartupLocation="CenterScreen">
+        Title="Ring And Centennial" ResizeMode="CanMinimize" Icon="LogoIco.ico" KeyDown="Window_KeyDown" Height="311" Width="563" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
