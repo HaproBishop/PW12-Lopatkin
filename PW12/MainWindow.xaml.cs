@@ -80,10 +80,12 @@ namespace PW12
         private void FindSquareOfRing_Click(object sender, RoutedEventArgs e)
         {
             FirstPage.Focus();
-            if (FindSquareOfRing.IsEnabled)//Проверка на включенность кнопки
-            {                
+            if (FirstSquare.Text != "" && SecondSquare.Text != "")//Проверка на включенность кнопки
+            {
                 SquareOfRing.Text = circles.FindSquareOfRing().ToString();
             }
+            else MessageBox.Show("Вам необходимо для начала найти площади кругов, чтобы потом рассчитать площадь кольца","Уведомление",
+                MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void FirstRadius_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -212,27 +214,16 @@ namespace PW12
             switch (switcher)
             {
                 case 1:
-                    {
-                        FindSquaresOfCircles.IsEnabled = true;//Включение кнопки поиска площадей кругов
+                    {                        
                         FindSquaresOfCircles.IsDefault = true;
-                        MenuFindSquaresOfCircles.IsEnabled = true;//Включение пункта меню+контекстное
-                        ContextMenuFindSquaresOfCircles.IsEnabled = true;
-                        FindSquareOfRing.IsEnabled = false;//Отключение клавиш и пунктов других меню+контекстное
-                        MenuFindSquareOfRing.IsEnabled = false;
-                        ContextMenuFindSquareOfRing.IsEnabled = false;
+                        FindSquareOfRing.IsDefault = false;
                         DisplayCentennial.IsDefault = false;//Смена дефолта
                         SquareOfRing.Clear();//Очистка значения площади кольца
                         break;
                     }
                 case 2:
-                    {
-                        FindSquareOfRing.IsEnabled = true;//Аналогично другой кнопке
-                        FindSquareOfRing.IsDefault = true;
-                        MenuFindSquareOfRing.IsEnabled = true;
-                        ContextMenuFindSquareOfRing.IsEnabled = true;
-                        FindSquaresOfCircles.IsEnabled = false;
-                        MenuFindSquaresOfCircles.IsEnabled = false;
-                        ContextMenuFindSquaresOfCircles.IsEnabled = false;
+                    {                        
+                        FindSquareOfRing.IsDefault = true;                                                                        
                         DisplayCentennial.IsDefault = false;
                         break;
                     }

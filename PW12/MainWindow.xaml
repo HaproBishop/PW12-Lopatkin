@@ -923,7 +923,7 @@
                         </Grid>
                     </GroupBox>
                     <Button x:Name="FindSquaresOfCircles" Content="Найти площади кругов" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top" Width="248" Click="FindSquaresOfCircles_Click" Focusable="False" Height="20" ToolTip="Кнопка, при нажатии которой вычисляется площадь всех кругов"/>
-                    <Button x:Name="FindSquareOfRing" Content="Найти площадь кольца" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Width="248" Click="FindSquareOfRing_Click" IsEnabled="False" IsDefault="True" Focusable="False" Height="20" ToolTip="Кнопка, при нажатии которой вычисляется площадь кольца"/>
+                    <Button x:Name="FindSquareOfRing" Content="Найти площадь кольца" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Width="248" Click="FindSquareOfRing_Click" IsDefault="True" Focusable="False" Height="20" ToolTip="Кнопка, при нажатии которой вычисляется площадь кольца"/>
                     <Separator HorizontalAlignment="Left" Height="10" Margin="179,87,0,0" VerticalAlignment="Top" Width="184" Background="Black" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
                         <Separator.RenderTransform>
                             <TransformGroup>

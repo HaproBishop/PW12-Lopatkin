@@ -80,12 +80,12 @@ namespace CirclesAndYearsLibrary
         {
             return (T)MemberwiseClone();
         }/// <summary>
-        /// Стандартное клонирование с перенаправлением на универсальный метод клонирования
+        /// Стандартное клонирование
         /// </summary>
         /// <returns></returns>
         public object Clone()
         {
-            return Clone<Circle>();
+            return MemberwiseClone();
         }/// <summary>
         /// Очистка данных объекта с предварительным сохранением
         /// </summary>
